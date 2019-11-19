@@ -3,9 +3,15 @@
 
 <div>
 <%@following_tweets.each do |tweet| %>
-    <div>
-    <p>@<%= tweet.user.username %></p>
-    <p><%= tweet.message.html_safe %></p>
+    <div class = well>
+    <p>@<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>
+    @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>
+    <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %> 
+    <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %>
+    </p>
+    <p>
+    <%= tweet.message.html_safe %>
+    </p>
     </div>
     <% end %>
 </div>

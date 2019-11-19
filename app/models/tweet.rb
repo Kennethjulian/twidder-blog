@@ -9,11 +9,12 @@ class Tweet < ApplicationRecord
     def apply_link
         arr = self.message.split
         index = arr.map {|x| x.include?("http://") || x.include?("https://")}.index(true)
-if index >= 0
+    unless index.nil?
+    if index >= 0 
     url = arr[index]
     arr[index] = "<a href= '#{self.link}' target='_blank'>#{url}</a>"
+    end
 end
-
 self.message = arr.join(" ")
 end
 def link_check

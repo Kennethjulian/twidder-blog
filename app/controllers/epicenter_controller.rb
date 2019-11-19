@@ -1,4 +1,31 @@
 class EpicenterController < ApplicationController
+  def all_users
+    @users = User.all
+  end
+
+  # epicenter_controller.rb
+  def following
+    @user = User.find(params[:id])
+    @users = []
+
+    User.all.each do |user|
+      if @user.following.include?(user.id)
+        @users.push(user)
+      end
+    end
+  end
+
+  def followers
+    @user =  User.find(params[:id])
+    @users = []
+
+    User.all.each do |user|
+      if user.following.include?(@user.id)
+        @users.push(user)
+      end
+    end
+  end
+
   def tag_tweets
     @tag = Tag.find(params[:id])
   end
